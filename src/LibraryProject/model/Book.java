@@ -3,6 +3,7 @@ package LibraryProject.model;
 import LibraryProject.util.BookStatus;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Book {
 
@@ -26,7 +27,15 @@ public class Book {
         this.owner = null;
     }
 
-    public Book(String bookID, String name, String author, double price, String edition) {
+    public Book(String bookID, String name, String authorName, double price, String edition) {
+        this.bookId = bookID;
+        this.name = name;
+        this.author = new Author(authorName); // Author nesnesi oluşturuluyor
+        this.price = price;
+        this.edition = edition;
+        this.status = BookStatus.AVAILABLE;
+        this.dateOfPurchase = LocalDate.now();
+        this.owner = null;
     }
 
 
@@ -66,7 +75,7 @@ public class Book {
         System.out.println("[" + bookId + "] " + name + " / " + author +
                 " | Fiyat: " + price +
                 " | Durum: " + status +
-                " | Sahip: " + (owner == null ? "Kütüphane" : owner.getTitle()) +
+                " | Sahip: " + (owner == null ? "Kütüphane" : owner.getName()) +
                 " | Baskı: " + edition +
                 " | Alım: " + dateOfPurchase);
     }
@@ -81,5 +90,31 @@ public class Book {
         if (newStatus == BookStatus.AVAILABLE) {
             this.owner = null; // geri gelmiş
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId='" + bookId + '\'' +
+                ", author=" + author +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", status=" + status +
+                ", edition='" + edition + '\'' +
+                ", dateOfPurchase=" + dateOfPurchase +
+                ", owner=" + owner +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Book book)) return false;
+        return bookId == book.bookId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(bookId);
     }
 }
