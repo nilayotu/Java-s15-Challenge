@@ -10,9 +10,6 @@ public class Reader extends Person {
     private MemberRecord record; //COMPOSITION
     private List<Book> books = new ArrayList<>(); //KISININ ODUNC ALDIGI KITAPLAR
 
-
-
-
     public Reader(String name, MemberRecord record) {
         super(name);
         this.record = record;
@@ -34,7 +31,6 @@ public class Reader extends Person {
         books.add(b);
         record.incBookIssued();
         b.changeOwner(this);
-        System.out.println(getName() + " -> ödünç aldı: " + b.getTitle());
         return true;
     }
 
@@ -56,6 +52,10 @@ public class Reader extends Person {
             System.out.println(getName() + " kullanıcısındaki kitaplar:");
             for (Book b : books) b.display();
         }
+    }
+
+    public boolean hasBook(Book book) {
+        return books.contains(book);
     }
 
     public MemberRecord getRecord() {

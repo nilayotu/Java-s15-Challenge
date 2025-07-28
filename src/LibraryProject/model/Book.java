@@ -3,7 +3,6 @@ package LibraryProject.model;
 import LibraryProject.util.BookStatus;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Book {
 
@@ -59,16 +58,17 @@ public class Book {
         return status;
     }
 
-    public String getEdition() {
-        return edition;
+    public void setTitle(String title) {
+        this.name = title;
     }
-
-    public LocalDate getDateOfPurchase() {
-        return dateOfPurchase;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
-
-    public Reader getOwner() {
-        return owner;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    public void setEdition(String edition) {
+        this.edition = edition;
     }
 
     public void display() {
@@ -107,14 +107,15 @@ public class Book {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Book book)) return false;
-        return bookId == book.bookId;
-
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return this.getBookId().equals(book.getBookId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(bookId);
+        return java.util.Objects.hash(getBookId());
     }
 }

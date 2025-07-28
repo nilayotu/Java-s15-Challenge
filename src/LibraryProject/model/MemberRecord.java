@@ -69,6 +69,13 @@ public class MemberRecord {
         return balance;
     }
 
+    public void payBill(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Ödeme miktarı negatif olamaz");
+        }
+        balance -= amount;
+    }
+
     public boolean canBorrow() {
         return noBooksIssued < maxBookLimit;
     }
@@ -81,10 +88,6 @@ public class MemberRecord {
         if (noBooksIssued > 0) noBooksIssued--;
     }
 
-    public void payBill(double amount) {
-        balance -= amount; // NEGATIF DE GELEBILIR KONTROL EDILMELI
-    }
-
     @Override
     public String toString() {
         return "MemberRecord{" +
@@ -95,6 +98,4 @@ public class MemberRecord {
                 ", balance=" + balance +
                 '}';
     }
-
-
 }

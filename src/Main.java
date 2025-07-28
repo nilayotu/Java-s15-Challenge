@@ -1,6 +1,7 @@
 import LibraryProject.model.*;
 import LibraryProject.service.Librarian;
 import LibraryProject.service.Library;
+import LibraryProject.service.Bill;
 
 import java.util.Scanner;
 
@@ -47,6 +48,8 @@ public class Main {
             System.out.println("7- Kitap Geri Al");
             System.out.println("8- Kitap Sil");
             System.out.println("9- Okuyucu Kitapları Göster");
+            System.out.println("10- Kitap Bilgisi Güncelle");
+            System.out.println("11- Faturaları Görüntüle");
             System.out.println("0- Çıkış");
             System.out.print("Seçim: ");
 
@@ -122,7 +125,7 @@ public class Main {
                     }
                     System.out.print("Kitap ID: ");
                     String bid = sc.nextLine();
-                    librarian.issueBook(lib, rr, bid);
+                    librarian.issueBook(lib, rr, bid); // Fatura da burada kesilsin
                     break;
 
                 case 7: // geri al
@@ -150,6 +153,24 @@ public class Main {
                     Reader r = lib.getReader(rid);
                     if (r == null) System.out.println("Üye yok.");
                     else r.showBook();
+                    break;
+
+                case 10:
+                    System.out.print("Güncellenecek kitap ID: ");
+                    String updateId = sc.nextLine();
+                    System.out.print("Yeni ad: ");
+                    String newTitle = sc.nextLine();
+                    System.out.print("Yeni yazar: ");
+                    String newAuthor = sc.nextLine();
+                    System.out.print("Yeni fiyat: ");
+                    double newPrice = Double.parseDouble(sc.nextLine());
+                    System.out.print("Yeni baskı: ");
+                    String newEdition = sc.nextLine();
+                    lib.updateBook(updateId, newTitle, newAuthor, newPrice, newEdition);
+                    break;
+
+                case 11:
+                    lib.getAllBills().forEach(Bill::display);
                     break;
 
                 case 0:
